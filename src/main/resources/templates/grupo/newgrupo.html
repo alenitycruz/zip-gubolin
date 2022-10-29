@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+xmlns:layout="http://www.altraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content">
+    <div class="alert alert-primary" th:if="${mensagem!=null}" th:text="${mensagem}"></div>
+	<div class="m-3">
+		<h1 class="text-light">Criar Grupo</h1>
+		<hr>
+	</div>
+		<div class="container">
+		<form method="post" th:object="${grupo}" th:action="@{/grupo/novo}">
+			<div class="row">
+                <input type="hidden" th:field="*{id_grupo}"></input>
+				<div class="mb-3">
+					<label for="nomeParticipante" class="form-label">Nome</label>
+                    <input class="form-control" type="text" th:field="*{nome}" required></input>
+                    <div class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*nome"></div>
+				</div>
+
+				<div class="mb-3 col-2">
+					<label for="numIntegrantes" class="form-label">Integrantes</label>
+					<input class="form-control" type="text" th:field="*{numIntegrantes}" required></input>
+                    <div class="text-danger" th:if="${#fields.hasErrors('numIntegrantes')}" th:errors="*numIntegrantes"></div>
+				</div>
+
+				<div class="mb-3 mt-2 col-4">
+                    <label for="evento">Evento</label>
+                    <select class="form-select" th:field="*{evento}">
+                        <option th:each="evento : ${listarEvento}" th:value="${evento.id_evento}" th:text="${evento.nome}"></option>
+                    </select>
+				</div>
+
+				<div class="mb-3 col-6">
+					<label for="formFile" class="form-label">Imagem Grupo</label> <input
+						class="form-control" type="file" id="formFile">
+				</div>
+
+				<div class="container">
+					<div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" th:field="*{status}" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">Disponível</label>
+                    </div>
+				</div>
+				<div class="col-7">
+					<button onclick="voltar()" class="btn btn-danger">Cancelar</button>
+					<button type="submit" class="btn btn-success">Salvar Grupo</button>
+				</div>
+		</form>
+		<script>
+			function voltar() {
+				window.history.back();
+			}
+		</script>
+	</div>
+</div>
+</html>

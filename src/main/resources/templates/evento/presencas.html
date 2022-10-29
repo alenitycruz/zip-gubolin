@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+xmlns:layout="http://www.altraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content" th:object="${evento}">
+    <nav class="navbar navbar-expand-lg nav$bar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav text-light">
+            <a class="nav-item nav-link active text-light" th:href="@{/evento}">Geral</a>
+            <a class="nav-item nav-link text-light" th:href="@{/evento/grupos(id=${evento.id_evento})}">Grupos</a>
+            <a class="nav-item nav-link text-light" th:href="@{/evento/entregas(id=${evento.id_evento})}">Entregas</a>
+            <a class="nav-item nav-link text-light" href="#">Presenças</a>
+            <a class="nav-item nav-link text-light" th:href="@{/evento/pontuacao(id=${evento.id_evento})}">Pontuação</a>
+          </div>
+        </div>
+    </nav>
+    <hr>
+    <div>
+        <p class="text-light h3">Presenças</p>
+    </div>
+    <form>
+      <div th:if="${not #lists.isEmpty(listaParticipante)}" class="list-group m-3">
+        <table class="table table-striped">
+          <thead>
+            <tr class="text-light">
+                <th>Participante</th>
+                <th>Grupo</th>
+                <th>
+                    Dias de evento
+                </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="participante : ${listaParticipante}" class="text-light">
+              <td th:text="${participante.nome}"></td>
+              <td th:text="${participante.grupo.nome}"></td>
+              <td>
+                <table>
+                  <thead>
+                    <tr th:each="atividade : ${listaAtividades}" class="text-light">
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="atividade : ${listaAtividades}" class="text-light">
+                      <td class="inline">
+                        <label th:text="${atividade.nome}"></label>
+                        <input type="checkbox">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            </tbody>
+        </table>
+      </div>
+  </form>
+    <button type="submit" class="btn btn-success m-3">Salvar</button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</div>
+</html>

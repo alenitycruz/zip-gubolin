@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.altraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content">
+
+    <div class="container">
+        <h1>Editar Usuário</h1>
+        <hr>
+        <p class="mb-4">
+            Os usuários podem acessar as demais funcionalidades do sistema
+        </p>
+        <!-- DataTales Example -->
+            <form method="POST" th:object="${usuario}" th:action="@{/usuario/editar}">
+            <div class="alert alert-danger alert-dismissible" th:if="${#fields.hasErrors('*')}">
+                                                <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+                                                <div th:each="error : ${#fields.errors('*')}" th:text="${error}"></div>
+                                            </div>
+                                            <input type="hidden" th:field="*{id}">
+                <div class="row">
+                    <div class="mb-3">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control"  th:field="*{nome}"
+                           placeholder="Digite o seu nome">
+                </div>
+
+                    <div class="mb-3 col-6">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control"  th:field="*{email}"
+                           placeholder="Digite o seu email">
+                </div>
+
+                    <div class="mb-3 col-2">
+                    <label for="quatroLetras">4 Letras</label>
+                    <input type="text" class="form-control"  th:field="*{quatroLetras}"
+                           placeholder="Digite o seu usuario 4 letras">
+                </div>
+
+				<br>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>

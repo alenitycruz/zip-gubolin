@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.altraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content">
+
+    <div class="container">
+        <h1>Cadastrar Usuário</h1>
+        <hr>
+        <p class="mb-4">
+            Os usuários podem acessar as demais funcionalidades do sistema
+        </p>
+        <!-- DataTales Example -->
+        <form method="POST" th:object="${usuario}" th:action="@{/usuario/novo}">
+            <div class="alert alert-danger alert-dismissible" th:if="${#fields.hasErrors('*')}">
+                <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+                <div th:each="error : ${#fields.errors('*')}" th:text="${error}"></div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-12">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" th:field="*{nome}"
+                           placeholder="Digite o seu nome">
+                </div>
+                <div class="form-group col-6">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" th:field="*{email}"
+                           placeholder="Digite o seu email">
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="quatroLetras">4 Letras</label>
+                    <input type="text" class="form-control" th:field="*{quatroLetras}"
+                           placeholder="Digite o seu usuario 4 letras">
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="senha">Senha</label>
+                    <input type="password" class="form-control" th:field="*{senha}"
+                           placeholder="Digite a sua senha">
+                </div>
+
+                <div class="container">
+                <div class="row mt-3">
+
+                    <div class="col-1 mr-3">
+                        <button onclick="voltar()" class="btn btn-danger">Cancelar</button>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Salvar Usuário</button>
+                    </div>
+                </div>
+                </div>
+        </form>
+    </div>
+
+    <script2
+			function voltar() {
+				window.history.back();
+            }
+
+    </script>
+
+</div>
+</div>
+</div>
+</html>

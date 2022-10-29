@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+xmlns:layout="http://www.altraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content" th:object="${evento}">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav text-light">
+            <a class="nav-item nav-link active text-light" th:href="@{/evento}">Geral</a>
+            <a class="nav-item nav-link text-light" th:href="@{/evento/grupos(id=${evento.id_evento})}">Grupos</a>
+            <a class="nav-item nav-link text-light" th:href="@{/evento/entregas(id=${evento.id_evento})}">Entregas</a>
+            <a class="nav-item nav-link text-light" th:href="@{/evento/presencas(id=${evento.id_evento})}">Presenças</a>
+            <a class="nav-item nav-link text-light" href="#">Pontuação</a>
+          </div>
+        </div>
+    </nav>
+    <hr>
+    <div class="m-3">
+        <h1 class="text-light">Pontuação</h1>
+        <hr>
+    </div>
+    <div th:if="${not #lists.isEmpty(listaGrupo)}" class="list-group m-3">
+      <table class="table table-striped">
+        <thead>
+          <tr class="text-light">
+              <th>Nome do Grupo</th>
+              <th>Presenças</th>
+              <th>Atividades</th>
+              <th>Atrasos?</th>
+              <th>Bônus Presença?</th>
+              <th>Bônus Atividades?</th>
+              <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="grupo : ${listaGrupo}" class="text-light">
+            <td th:text="${grupo.nome}"></td>
+            <td th:text="${grupo.presencas}"></td>
+            <td th:text="${grupo.atividades ? 'Todas Entregues' :  'Não kk F'}"></td>
+            <td th:text="${grupo.atrasos ? 'P. atrasados' : 'S/ atrasos'}"></td>
+            <td th:text="${grupo.bonusPresenca}"></td>
+            <td th:text="${grupo.bonusAtividade}"></td>
+            <td th:text="${grupo.pontuacaoTotal}"></td>
+          </tr>
+          </tbody>
+      </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</div>
+</html>

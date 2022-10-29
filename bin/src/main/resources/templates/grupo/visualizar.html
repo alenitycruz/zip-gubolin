@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+xmlns:layout="http://www.altraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content" th:object="${grupo}">
+    <div class="alert alert-primary" th:if="${mensagem!=null}" th:text="${mensagem}"></div>
+    <div >
+      <div class="col-auto col-md-5 col-xl-15 px-0">
+        <label th:text="${grupo.nome}" class="h3 mb-4 m-2"></label>
+        <a class="btn btn-small text-light mb-1" th:href="@{/grupo/editar(id=${grupo.id_grupo})}"><i class="bi bi-pencil-square"></i></a>  
+      </div>
+      <div class="container-fluid">
+			  <div class="row">
+				  <div class="col-auto col-md-5 col-xl-5 px-0">
+					  <div class="d-flex flex-column align-items-center align-items-sm-start">
+						  <ul class="nav flex-column mb-sm-auto mb-0 align-items-sm-start" id="menu">
+							  <li class="nav-item text-light mb-3 fs-5">
+                  <i class="bi bi-people-fill"></i>
+                  <span class="ms-1 d-none d-sm-inline text-light">Nome: </span>
+                  <label class="ms-1 d-none d-sm-inline text-light" th:text="${grupo.nome}"></label>
+							  </li>
+							  <li class="text-light mb-3 fs-5">
+								  <i class="bi bi-list-ol"></i> 
+								  <span class="ms-1 d-none d-sm-inline text-light">Quantidade de integrantes:</span>
+                  <label class="ms-1 d-none d-sm-inline text-light" th:text="${grupo.numIntegrantes}"></label>
+							  </li>
+							  <li class="text-light mb-3 fs-5">
+                  <i class="bi bi-lock"></i>
+                  <span class="ms-1 d-none d-sm-inline">Disponibilidade:</span>
+                  <td th:text="${grupo.status ? 'Disponível' : 'Indisponível'}"></td>
+                </li>
+                <li>
+                  <label class="h3 mb-4 mt-3">Participantes deste grupo</label>
+                </li>        
+						</ul> 
+					</div>
+				</div>
+			</div>
+		</div>
+    <div th:if="${not #lists.isEmpty(listaParticipantes)}" class="list-group m-3">
+      <table class="table table-striped">
+        <thead>
+          <tr class="text-light">
+              <th>Id</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Quatro Letras</th>
+              <th>Nível</th>
+              <th>Status</th>
+              <th>Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="participante : ${listaParticipantes}" class="text-light">
+            <td th:text="${participante.id_participante}"></td>
+            <td th:text="${participante.nome}"></td>
+            <td th:text="${participante.email}"></td>
+            <td th:text="${participante.quatro_letras}"></td>
+            <td th:text="${participante.nivel}"></td>
+            <td th:text="${participante.status ? 'Disponível' : 'Indisponível'}"></td>
+            <td>
+              <a class="btn btn-danger btn-small text-light"><i class="bi bi-trash"></i></a>
+            </td>
+          </tr>
+          </tbody>
+      </table>
+    </div> 
+    <a class="btn btn-success btn-small text-light m-3" th:href="@{/participante/novo(id=${grupo.id_grupo})}"><i class="bi bi-person-plus"></i></a></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</div>
+</html>

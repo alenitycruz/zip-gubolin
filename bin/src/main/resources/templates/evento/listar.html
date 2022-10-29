@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+xmlns:layout="http://www.altraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content">
+    <div class=" m-3">
+        <h1 class="text-light">Painel geral</h1>
+        <hr>
+    </div>
+      <div class="alert alert-primary" th:if="${#lists.isEmpty(lista)}">
+        Nenhum evento cadastrado.
+      </div>
+    <div class="alert alert-primary" th:if="${mensagem!=null}" th:text="${mensagem}">
+       
+    </div>
+    <div>
+        <div class="card-body mt-0">
+            <form method="get">
+                <div class="form-group mb-3">
+                    <label for="nome" class="mb-2">Nome</label>
+                    <input class="form-control" type="text" name="nome" th:value="${nome}"></input>
+                </div> 
+                <button type="submit" class="btn btn-primary">Pesquisar Evento</button>
+            </form>
+        </div>
+    </div>
+    <div th:if="${not #lists.isEmpty(lista)}" class="list-group m-3">
+        <table class="table table-striped">
+            <thead>
+                <tr class="text-light">
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Data de Início</th>
+                    <th>Data Final</th>
+                    <th>Status</th>
+                    <th>Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="evento : ${lista}" class="text-light">
+                    <td th:text="${evento.id_evento}"></td>
+                    <td th:text="${evento.nome}"></td>
+                    <td th:text="${#dates.format(evento.dataInicio, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${#dates.format(evento.dataFinal, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${evento.status ? 'Disponível' : 'Indisponível'}"></td>
+                    <td>
+                        <a class="btn btn-warning btn-small text-light" th:href="@{/evento/visualizar(id=${evento.id_evento})}"><i class="bi bi-eye"></i></a>
+                    <a class="btn btn-danger btn-small text-light" th:href="@{/evento/excluir(id=${evento.id_evento})}" onclick="return confirm('Você realmente deseja excluir este evento?')"><i class="bi bi-trash"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    <a class="btn btn-success text-light m-3" th:href="@{/evento/novo}">Novo Evento</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</div>
+</html>
